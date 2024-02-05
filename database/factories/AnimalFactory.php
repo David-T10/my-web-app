@@ -18,8 +18,6 @@ class AnimalFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'age' => fake()->age(),
-            'origin' => fake()->origin(),
             'weight' => fake()->randomFloat(2, 300, 500),
         ];
     }

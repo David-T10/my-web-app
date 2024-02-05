@@ -15,11 +15,10 @@ class AnimalTableSeeder extends Seeder
     {
         $a = new Animal;
         $a->name ="Leroy";
-        $a->age="5.0";
-        $a->origin="nevis";
+        $a->weight="10.0";
         $a->save();
 
-        Animal::factory()->coutn(50)->create();
+        Animal::factory()->count(50)->create();
 
     }
 }
