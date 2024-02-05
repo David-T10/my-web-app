@@ -19,5 +19,7 @@ class AnimalTableSeeder extends Seeder
         $a->origin="nevis";
         $a->save();
 
+        Animal::factory()->coutn(50)->create();
+
     }
 }
