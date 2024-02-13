@@ -24,12 +24,13 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        fake('en_US');
         
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'bio' => fake()->sentence(10),
+            'bio' => fake()->realText($maxNbChars = 200),
             'date_of_birth' => fake()->date($format = 'Y-m-d', $max = 'now'),
             'profile_pic' => fake()->imageUrl($width = 200, $height = 200, 'people'),
             'password' => static::$password ??= Hash::make('password'),

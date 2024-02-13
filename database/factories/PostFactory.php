@@ -19,8 +19,8 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => fake()->numberBetween(2,User::count()),
-            'content' => fake()->sentence(10),
-            'title' => fake()->sentence(10),
+            'content' => fake()->realText($maxNbChars = 200),
+            'title' => fake()->catchPhrase($maxNbChars = 10),
         ];
     }
 }
