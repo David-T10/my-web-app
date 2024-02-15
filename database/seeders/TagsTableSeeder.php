@@ -4,20 +4,20 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Comment;
+use App\Models\Tag;
 
-class CommentTableSeeder extends Seeder
+class TagsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $c = new Comment;
-        $c-> content="This is my post";
-        $c->user_id =1;
-        $c->save();
+        $t= new Tag;
+        $t->tagName = "happy";
+        $t->save();
+        $t->posts()->attach(1);
+        $t->posts()->attach(3);
 
-        Comment::factory()->count(10)->create();
     }
 }
