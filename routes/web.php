@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,24 +18,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*Route::get('/data', function ($data) {
-    return view('welcome', ['data' => $data]);
-});*/ 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/home', function () {
-    return "This is the home page";
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get("/anotherHome", function () {
-    return "This is the second home page";
-});
-
-Route::redirect("/anotherHome", "/home", 301);
-
-Route::get('users/{id?}', function($id = "Mystery"){
-    return "User Page ".$id;
-});
-
-Route::get("users/{id}/comment/{commentId}", function($id, $commentId){
-    return "User Page ".$id." Comment Id: ".$commentId;
-});
+require __DIR__.'/auth.php';
