@@ -22,6 +22,10 @@ Route::get('/posts/{user?}', function($user = null){
     return view('posts', ['user'=>$user]);
 });
 
+Route::get('/food', function(){
+    return view('food');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
