@@ -16,7 +16,7 @@ class TagsTableSeeder extends Seeder
         $t= new Tag;
         $t->tagName = "happy";
         $t->save();
-        $t->posts()->attach(1);
+        $t->posts()->attach(1); //attaches this tag to the user indexed
         $t->posts()->attach(3);
 
     }
