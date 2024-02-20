@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,9 +19,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts/{user?}', function($user = null){
+/*Route::get('/posts/{user?}', function($user = null){
     return view('posts', ['user'=>$user]);
-});
+});*/
+
+Route::get('/posts', [PostController::class, 'index']); //controller to use + method to use in controller
 
 Route::get('/food', function(){
     return view('food');
