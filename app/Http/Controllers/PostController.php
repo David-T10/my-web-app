@@ -16,6 +16,12 @@ class PostController extends Controller
         return view ('posts.index', ['posts' => $posts]);
     }
 
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+        return view ('posts.show', ['post'=> $post]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -35,10 +41,6 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

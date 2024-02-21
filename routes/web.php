@@ -19,23 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*Route::get('/posts/{user?}', function($user = null){
-    return view('posts', ['user'=>$user]);
-});*/
-
-Route::get('/posts', [PostController::class, 'index']); //controller to use + method to use in controller
-
-Route::get('/food', function(){
-    return view('food');
-});
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show'); //controller to use + method to use in controller
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/secret', function(){
-    return "secret view";
-})->middleware(['auth']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -22,6 +22,7 @@ class PostFactory extends Factory
             'user_id' => fake()->numberBetween(2,User::count()),
             'content' => fake()->realText($maxNbChars = 200),
             'title' => fake()->catchPhrase($maxNbChars = 10),
+            'post_pic' => fake()->imageUrl($width = 200, $height = 200, 'food'),
         ];
     }
 }
