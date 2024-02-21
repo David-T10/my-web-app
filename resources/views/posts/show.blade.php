@@ -5,7 +5,7 @@
 @section('content')
 <ul>
     <li>Title: {{$post->title}}</li>
-    <li>Posted By: {{$post->user->name}}</li>
+    <li>Posted By: <a href="{{route('users.show',['id' => $post->user->id])}}">{{$post->user->name}}</a></li>
     <li>Picture: 
         @if ($post->post_pic)
             <img src="{{$post->post_pic}}" alt="Post Picture"></li>
