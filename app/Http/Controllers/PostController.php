@@ -22,6 +22,7 @@ class PostController extends Controller
         return view ('posts.show', ['post'=> $post]);
     }
 
+
     /**
      * Show the form for creating a new resource.
      */
