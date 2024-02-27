@@ -14,26 +14,17 @@
         @endif
     </li>
     <li>Content: {{ $post->content }}</li>
-</ul>
+    </ul>
 
-<ul id="comments-list">
-    <!-- Comments will be dynamically loaded here -->
+<ul>
+    <strong>Comments:</strong>
+    @foreach ($post->comments as $comment)
+    <li>
+        <strong>{{ $comment->user->name }}:</strong> {{ $comment->content }}
+    </li>
+    @endforeach
 </ul>
-<button onclick="loadAllComments('{{ $post->id }}')">Show All Comments</button>
+{{ $comments->links() }}
 
-<script>
-    function loadAllComments(postId) {
-        // Make an Ajax request to fetch comments for the specified post ID
-        fetch(`/posts/${postId}/comments`)
-            .then(response => response.json())
-            .then(data => {
-                const commentsList = document.getElementById('comments-list');
-                commentsList.innerHTML = ''; // Clear existing comments
-                data.forEach(comment => {
-                    commentsList.innerHTML += `<li><strong>${comment.user.name}:</strong> ${comment.content}</li>`;
-                });
-            })
-            .catch(error => console.error('Error fetching comments:', error));
-    }
-</script>
+
 @endsection
