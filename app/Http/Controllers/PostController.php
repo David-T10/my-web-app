@@ -38,7 +38,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request['title']);
+        $validatedData = $request->validate([
+            'title'=> 'required|max:255',
+            'content' => 'required|max:3000'
+        ]);
+
+        return "Pass Validation";
     }
 
     /**
