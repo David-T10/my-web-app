@@ -5,6 +5,9 @@
     </head>
     <body>
         <h1>Blog Website - @yield('title')</h1>
+        @if (session('message'))
+            <p><b>{{session('message')}}</b></p>
+        @endif
         @if ($errors->any())
         <div>
             Errors:

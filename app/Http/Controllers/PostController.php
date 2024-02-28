@@ -42,8 +42,14 @@ class PostController extends Controller
             'title'=> 'required|max:255',
             'content' => 'required|max:3000'
         ]);
+        
+        $p = new Post;
+        $p->title = $validatedData['title'];
+        $p->content = $validatedData['content'];
+        $p->save();
 
-        return "Pass Validation";
+        session()->flash('message','Post was created.');
+        return redirect()->route('posts.index');
     }
 
     /**
