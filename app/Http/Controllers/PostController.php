@@ -53,8 +53,7 @@ class PostController extends Controller
         $p->user_id = Auth::id();
         $p->save();
 
-        session()->flash('message','Post was created.');
-        return redirect()->route('posts.index');
+        return redirect()->back()->with('message','Post was created.');
     }
 
     /**
@@ -80,8 +79,17 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(Post $post_id)
+{
+    if (Auth::id() !== $post_id->user_id) {
+        // User is not the owner of the post
+        return redirect()->back()->with('error', 'You are not authorized to delete this post.');
     }
+
+    $post = Post::findOrFail($post_id);
+    $post->delete();
+
+    return redirect()->back()->with('message', 'Post deleted successfully.');
+}
+
 }

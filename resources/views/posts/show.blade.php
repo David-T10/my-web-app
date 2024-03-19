@@ -16,6 +16,14 @@
     <li>Content: {{ $post->content }}</li>
     </ul>
 
+    @if (Auth::check() && Auth::user()->id == $post->user_id)
+    <form method="POST" action="{{ route('posts.destroy', ['id' => $post->id]) }}">
+        @csrf
+        @method('DELETE')
+        <button type="submit">Delete Post</button>
+    </form>
+@endif
+
 <ul>
     <strong>Comments:</strong>
     @foreach ($post->comments as $comment)
@@ -25,6 +33,7 @@
     @endforeach
 </ul>
 {{ $comments->links() }}
+
 
 <form method="POST" action="{{ route('comments.store', ['id' => $post->id]) }}">
     @csrf
