@@ -26,5 +26,14 @@
 </ul>
 {{ $comments->links() }}
 
+<form method="POST" action="{{ route('comments.store', ['id' => $post->id]) }}">
+    @csrf
+    <div>
+        <label for="content">Add a Comment:</label>
+        <textarea name="content" id="content" rows="3"></textarea>
+    </div>
+    <button type="submit">Submit Comment</button>
+</form>
+
 
 @endsection
