@@ -28,7 +28,7 @@ Route::get('/test', function () {
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');  //uploads new post to this page
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show'); //controller to use + method to use in controller
-Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 
 Route::get('/dashboard', function () {
@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/create', [PostController::class, 'create'])->name('posts.create'); //create post
-    Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
 

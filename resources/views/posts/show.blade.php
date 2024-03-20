@@ -17,7 +17,7 @@
     </ul>
 
     @if (Auth::check() && Auth::user()->id == $post->user_id)
-    <form method="POST" action="{{ route('posts.destroy', ['id' => $post->id]) }}">
+    <form method="POST" action="{{ route('posts.destroy', ['post' => $post->id]) }}">
         @csrf
         @method('DELETE')
         <button type="submit">Delete</button>
@@ -35,7 +35,7 @@
 {{ $comments->links() }}
 
 
-<form method="POST" action="{{ route('comments.store', ['id' => $post->id]) }}">
+<form method="POST" action="{{ route('comments.store', ['post' => $post->id]) }}">
     @csrf
     <div>
         <label for="content">Add a Comment:</label>

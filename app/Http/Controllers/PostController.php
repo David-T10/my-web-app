@@ -17,9 +17,8 @@ class PostController extends Controller
         return view ('posts.index', ['posts' => $posts]);
     }
 
-    public function show($id)
+    public function show(Post $post)
     {
-        $post = Post::findOrFail($id);
         $comments = $post->comments()->paginate(5);
         return view ('posts.show', ['post'=> $post, 'comments' => $comments]);
     }
@@ -79,10 +78,9 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($post_id)
+    public function destroy(Post $post)
 {
 
-    $post = Post::findOrFail($post_id);
     $post->delete();
 
     return redirect()->route('posts.index')->with('message', 'Post deleted successfully.');
