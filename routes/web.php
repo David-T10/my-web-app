@@ -26,8 +26,9 @@ Route::get('/test', function () {
 });
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show'); //controller to use + method to use in controller
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');  //uploads new post to this page
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show'); //controller to use + method to use in controller
+Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 
 Route::get('/dashboard', function () {
@@ -41,8 +42,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/create', [PostController::class, 'create'])->name('posts.create'); //create post
     Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('comments.store');
 });
-
-Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
 
 require __DIR__.'/auth.php';
