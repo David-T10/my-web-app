@@ -31,6 +31,11 @@
             <strong>{{ $comment->user->name }}:</strong> {{ $comment->content }}
             @if (Auth::check() && Auth::user()->id == $comment->user_id)
                 @livewire('edit-comment', ['commentId' => $comment->id])
+                <form method="POST" action="{{ route('comments.destroy', ['comment' => $comment->id]) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete</button>
+                </form>
             @endif
         </li>
     @endforeach

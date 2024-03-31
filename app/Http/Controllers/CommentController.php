@@ -73,8 +73,11 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Comment $comment)
     {
-        //
+        $postId = $comment->post_id;
+        $comment->delete();
+    
+        return redirect()->route('posts.show', ['post' => $postId])->with('message', 'Comment deleted successfully.');
     }
 }

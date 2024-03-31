@@ -29,6 +29,7 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');  //uploads new post to this page
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show'); //controller to use + method to use in controller
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 
 Route::get('/dashboard', function () {
