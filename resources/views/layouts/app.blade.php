@@ -5,6 +5,7 @@
     </head>
     <body>
         <h1>Blog Website - @yield('title')</h1>
+        @livewire('Logout')
         @if (session('message'))
             <p><b>{{session('message')}}</b></p>
         @endif
