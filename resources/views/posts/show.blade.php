@@ -6,7 +6,7 @@
 <ul>
     <li>Title: {{ $post->title }}</li>
     <li>Posted By: <a href="{{ route('users.show',['id' => $post->user->id]) }}">{{ $post->user->name }}</a></li>
-    <li>Picture: 
+    <li>Picture:
         @if ($post->post_pic)
             <img src="{{ $post->post_pic }}" alt="Post Picture">
         @else
@@ -14,9 +14,9 @@
         @endif
     </li>
     <li>Content: {{ $post->content }}</li>
-    </ul>
+</ul>
 
-    @if (Auth::check() && Auth::user()->id == $post->user_id)
+@if (Auth::check() && Auth::user()->id == $post->user_id)
     <form method="POST" action="{{ route('posts.destroy', ['post' => $post->id]) }}">
         @csrf
         @method('DELETE')
@@ -27,13 +27,16 @@
 <ul>
     <strong>Comments:</strong>
     @foreach ($post->comments as $comment)
-    <li>
-        <strong>{{ $comment->user->name }}:</strong> {{ $comment->content }}
-    </li>
+        <li>
+            <strong>{{ $comment->user->name }}:</strong> {{ $comment->content }}
+            @if (Auth::check() && Auth::user()->id == $comment->user_id)
+                @livewire('edit-comment', ['commentId' => $comment->id])
+            @endif
+        </li>
     @endforeach
 </ul>
-{{ $comments->links() }}
 
+{{ $comments->links() }}
 
 <form method="POST" action="{{ route('comments.store', ['post' => $post->id]) }}">
     @csrf
@@ -43,6 +46,4 @@
     </div>
     <button type="submit">Submit Comment</button>
 </form>
-
-
 @endsection

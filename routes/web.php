@@ -27,7 +27,7 @@ Route::get('/test', function () {
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');  //uploads new post to this page
-Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show'); //controller to use + method to use in controller
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show'); //controller to use + method to use in controller
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 
