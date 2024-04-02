@@ -37,23 +37,36 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Auth::check()){
+        if (!Auth::check()) {
             session()->flash('error', 'You must be logged in to access this page.');
             return redirect()->route('login');
         }
-        $validatedData = $request->validate([
-            'title'=> 'required|max:255',
-            'content' => 'required|max:3000'
-        ]);
         
-        $p = new Post;
-        $p->title = $validatedData['title'];
-        $p->content = $validatedData['content'];
-        $p->user_id = Auth::id();
-        $p->save();
+        
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required|max:3000',
+            'post_pic' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
+        ]);
+    
+        
+        if ($request->hasFile('post_pic')) {
+            $imagePath = $request->file('post_pic')->store('post_pics'); 
+            $imageUrl = asset('storage/' . $imagePath); 
+        } else {
+            $imageUrl = null; 
+        }
 
-        return redirect()->route('posts.index')->with('message','Post was created.');
+        $post = new Post;
+        $post->title = $validatedData['title'];
+        $post->content = $validatedData['content'];
+        $post->user_id = Auth::id();
+        $post->post_pic = $imageUrl; 
+        $post->save();
+    
+        return redirect()->route('posts.index')->with('message', 'Post was created.');
     }
+    
 
     /**
      * Display the specified resource.
