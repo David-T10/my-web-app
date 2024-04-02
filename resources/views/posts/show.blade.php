@@ -9,7 +9,6 @@
     <li>Picture:
         @if ($post->post_pic)
         <img src="{{ storage_path($post->post_pic) }}" alt="Post Picture">
-        {{dd($post->post_pic)}}
         @else
             No Picture Posted
         @endif
