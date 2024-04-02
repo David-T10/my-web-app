@@ -16,7 +16,7 @@
     <li>Content: {{ $post->content }}</li>
 </ul>
 
-@if (Auth::check() && Auth::user()->id == $post->user_id || Auth::user()->roles()->where('name', 'admin')->exists()))
+@if (Auth::check() && (Auth::user()->id == $post->user_id || (Auth::user()->roles && Auth::user()->roles()->where('name', 'admin')->exists())))
     <form method="POST" action="{{ route('posts.destroy', ['post' => $post->id]) }}">
         @csrf
         @method('DELETE')
@@ -29,7 +29,7 @@
     @foreach ($post->comments as $comment)
         <li>
             <strong>{{ $comment->user->name }}:</strong> {{ $comment->content }}
-            @if (Auth::check() && Auth::user()->id == $comment->user_id || Auth::user()->roles()->where('name', 'admin')->exists()))
+            @if (Auth::check() && (Auth::user()->id == $comment->user_id || (Auth::user()->roles && Auth::user()->roles()->where('name', 'admin')->exists())))
                 @livewire('edit-comment', ['commentId' => $comment->id])
                 <form method="POST" action="{{ route('comments.destroy', ['comment' => $comment->id]) }}">
                     @csrf
