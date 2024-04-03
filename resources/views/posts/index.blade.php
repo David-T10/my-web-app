@@ -1,24 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Posts')
+@section('title', 'All Posts')
 
 @section('content')
-    <p>All Posts from Users - Titles</p>
+    <div class="mt-8">
+        <ul>
+            @foreach ($posts as $post)
+                <li>
+                    <a href="{{ route('posts.show', ['post' => $post->id]) }}"
+                       class="block py-2 px-4 bg-white hover:bg-gray-200 transition duration-200 rounded-md">{{ $post->title }}</a>
+                </li>
+            @endforeach
+        </ul>
+    </div>
 
-    @if (Auth::check())
-        <p>Logged in as: <a href="{{ route('users.show', ['id' => Auth::user()->id]) }}">{{ Auth::user()->name }}</a></p>
-    @endif
-
-    <ul>
-        @foreach ($posts as $post)
-            <li><a href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title }}</a></li>
-        @endforeach
-    </ul>
-
-    <form method="GET" action="{{ route('posts.create') }}">
-        @csrf
-        <button type="submit">Create Post</button>
-    </form>
+    <div class="mt-8">
+        <form method="GET" action="{{ route('posts.create') }}">
+            @csrf
+            <button type="submit" class="bg-yellow-500 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded-md transition duration-200">Create Post</button>
+        </form>
+    </div>
 
     {{ $posts->links() }}
 @endsection

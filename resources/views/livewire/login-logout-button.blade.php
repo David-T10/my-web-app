@@ -1,9 +1,14 @@
 <div>
     @if (Auth::check())
+    <p>Logged in as: <a href="{{ route('users.show', ['id' => Auth::user()->id]) }}">{{ Auth::user()->name }}</a></p>
+@endif
+    @if (Auth::check())
         <form wire:submit.prevent="logout">
-            <button type="submit">Logout</button>
+            <button type="submit" class="bg-white hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
+                Logout
+            </button>
         </form>
     @else
-        <a href="{{ route('login') }}">Login</a>
+        <a href="{{ route('login') }}" class="bg-white hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">Login</a>
     @endif
 </div>
