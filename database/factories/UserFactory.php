@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\Profile;
 use App\Models\Post;
 
 /**
@@ -30,9 +31,6 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'bio' => fake()->realText($maxNbChars = 200),
-            'date_of_birth' => fake()->date($format = 'Y-m-d', $max = 'now'),
-            'profile_pic' => fake()->imageUrl($width = 200, $height = 200, 'people'),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
@@ -46,5 +44,10 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    public function withProfile(): static
+    {
+        return $this->has(Profile::factory());
     }
 }
