@@ -3,6 +3,7 @@
 <head>
     <title>Blog Website - @yield('title')</title>
     @livewireScripts
+    {{-- @vite('resources/css/app.css') --}}
 </head>
 <body>
     <h1>Blog Website - @yield('title')</h1>
