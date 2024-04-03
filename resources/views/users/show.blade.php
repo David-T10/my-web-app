@@ -5,7 +5,7 @@
 @section('content')
 <div class="flex flex-col items-center mt-8">
     <div class="w-32 h-32 rounded-full overflow-hidden">
-        @if ($user->profile->profile_pic)
+        @if ($user->profile?->profile_pic)
             <img class="object-cover w-full h-full" src="{{$user->profile->profile_pic}}" alt="User Profile Picture">
         @else
             <div class="bg-gray-300 flex items-center justify-center w-full h-full text-gray-600 text-xl">No Picture</div>
