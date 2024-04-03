@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Blog Website - @yield('title')</title>
+    <title>GloBlog - @yield('title')</title>
     @livewireScripts
     @vite('resources/css/app.css')
 </head>

@@ -1,6 +1,7 @@
 <div>
+    @vite('resources/css/app.css')
     @if (Auth::check())
-    <p>Logged in as: <a href="{{ route('users.show', ['id' => Auth::user()->id]) }}">{{ Auth::user()->name }}</a></p>
+    <p>Logged in as: <a class="hover:text-white" href="{{ route('users.show', ['id' => Auth::user()->id]) }}">{{ Auth::user()->name }}</a></p>
 @endif
     @if (Auth::check())
         <form wire:submit.prevent="logout">
