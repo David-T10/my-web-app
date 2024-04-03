@@ -17,6 +17,7 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => \App\Models\User::factory(),
             'bio' => fake()->realText($maxNbChars = 200),
             'date_of_birth' => fake()->date($format = 'Y-m-d', $max = 'now'),
             'profile_pic' => fake()->imageUrl($width = 200, $height = 200, 'people'),
