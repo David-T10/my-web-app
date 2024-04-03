@@ -22,7 +22,6 @@ class UserController extends Controller
     public function saveDetails(Request $request)
     {
         $user = auth()->user();
-
         $user->profile()->updateOrCreate([], [
             'dob' => $request->input('date_of_birth'),
             'bio' => $request->input('bio'),

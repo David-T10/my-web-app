@@ -1,12 +1,12 @@
-@extends('layouts.app')
-
-@section('title', 'Registration Details')
-
-@section('content')
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>GloBlog</title>
+    @livewireScripts
+    @vite('resources/css/app.css')
+</head>
 <div class="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
     <h2 class="text-2xl font-bold mb-4">Registration Details</h2>
-    
     <form method="POST" action="{{ route('register.details') }}" enctype="multipart/form-data">
         @csrf
         
@@ -30,5 +30,3 @@
         </div>
     </form>
 </div>
-
-@endsection
