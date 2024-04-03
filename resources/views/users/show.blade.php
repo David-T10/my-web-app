@@ -3,16 +3,25 @@
 @section('title', 'User Details')
 
 @section('content')
-<ul>
-    <li>Name: {{$user->name}}</li>
-    <li>Email: {{$user->email}}</li>
-    <li>Bio: {{$user->profile->bio ?? 'No Bio'}}</li>
-    <li>Date of Birth: {{$user->profile->date_of_birth ?? 'No DOB'}}</li>
-    <li>Picture: 
+<div class="flex flex-col items-center mt-8">
+    <div class="w-32 h-32 rounded-full overflow-hidden">
         @if ($user->profile->profile_pic)
-            <img src="{{$user->profile->profile_pic}}" alt="User Profile Picture"></li>
+            <img class="object-cover w-full h-full" src="{{$user->profile->profile_pic}}" alt="User Profile Picture">
         @else
-            No Picture Posted
+            <div class="bg-gray-300 flex items-center justify-center w-full h-full text-gray-600 text-xl">No Picture</div>
         @endif
-</ul>
+    </div>
+    <div class="mt-4">
+        <div class="font-bold">{{$user->name}}</div>
+        <div class="text-sm text-gray-600">{{$user->email}}</div>
+        <div class="bg-gray-100 rounded-md p-4 mt-2 h-auto">
+            <div class="text-sm">Bio:</div>
+            <div>{{$user->profile->bio ?? 'No Bio'}}</div>
+        </div>
+        <div class="mt-2">
+            <div class="text-sm">Date of Birth:</div>
+            <div>{{$user->profile->date_of_birth ?? 'No DOB'}}</div>
+        </div>
+    </div>
+</div>
 @endsection

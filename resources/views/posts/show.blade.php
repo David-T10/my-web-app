@@ -15,7 +15,7 @@
     </div>
 
     <div class="mt-4">
-        <p class = "font-bold">Author: <a href="{{ route('users.show',['id' => $post->user->id]) }}">{{ $post->user->name }}</a></p>
+        <p class = "font-bold underline hover:text-white">Author: <a href="{{ route('users.show',['id' => $post->user->id]) }}">{{ $post->user->name }}</a></p>
         <p>
             @if ($post->post_pic)
                 <img src="{{ storage_path($post->post_pic) }}" alt="Post Picture">
