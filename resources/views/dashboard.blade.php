@@ -9,5 +9,6 @@
 @endif
 
 @livewire('navigationbar')
+@livewire('logotitle')
 
 @endsection

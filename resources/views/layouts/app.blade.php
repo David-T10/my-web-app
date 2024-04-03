@@ -3,9 +3,9 @@
 <head>
     <title>Blog Website - @yield('title')</title>
     @livewireScripts
-    {{-- @vite('resources/css/app.css') --}}
+    @vite('resources/css/app.css')
 </head>
-<body>
+<body class="bg-blue-400">
     <h1>Blog Website - @yield('title')</h1>
     
     @livewire('login-logout-button')
@@ -28,7 +28,5 @@
     <div>
         @yield('content')
     </div>
-
-    @livewireScripts
 </body>
 </html>
