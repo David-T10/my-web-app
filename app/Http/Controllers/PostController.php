@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -20,7 +21,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $comments = $post->comments()->paginate(5);
-        return view ('posts.show', ['post'=> $post, 'comments' => $comments]);
+        $tagNames = $post->tags->pluck('tagName')->toArray();
+        return view ('posts.show', ['post'=> $post, 'comments' => $comments, 'tagNames' => $tagNames]);
     }
 
 
@@ -28,9 +30,10 @@ class PostController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view ('posts.create');
-    }
+{
+    $tags = Tag::all();
+    return view('posts.create', compact('tags'));
+}
 
     /**
      * Store a newly created resource in storage.
@@ -63,6 +66,15 @@ class PostController extends Controller
         $post->user_id = Auth::id();
         $post->post_pic = $imageUrl; 
         $post->save();
+
+        $tagNames = $request->input('tags');
+        if (is_string($tagNames)) {
+            $tagNames = explode(',', $tagNames);
+        }
+        foreach ($tagNames as $tagName) {
+            $tag = Tag::firstOrCreate(['tagName' => trim($tagName)]);
+            $post->tags()->attach($tag->id);
+        }
     
         return redirect()->route('posts.index')->with('message', 'Post was created.');
     }

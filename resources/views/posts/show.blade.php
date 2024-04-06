@@ -29,6 +29,18 @@
         <p>Caption: {{ $post->content }}</p>
     </div>
 
+    <div class="mt-4">
+        @if (!empty($tagNames))
+            <strong>Tags:</strong>
+            @foreach ($tagNames as $tagName)
+                <span class="inline-block bg-blue-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{ $tagName }}</span>
+            @endforeach
+        @else
+            <p>No tags</p>
+        @endif
+
+    </div>
+
     <div class="mt-8">
         <ul class="bg-gray-300 p-4 rounded-md">
             <strong>Comments:</strong>
