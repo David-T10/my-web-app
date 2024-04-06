@@ -3,6 +3,7 @@
 @section('title', 'All Posts')
 
 @section('content')
+
     <div class="mt-8">
         <ul>
             @foreach ($posts as $post)
