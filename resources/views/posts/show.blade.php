@@ -3,6 +3,12 @@
 @section('title', 'Post Details')
 
 @section('content')
+
+<div class="relative">
+    <div class="absolute top-0 right-0 mt-4 mr-4">
+        @livewire('twitter-button', ['postId' => $post->id])
+    </div>
+
     <div class="mt-8">
         <h2 class="underline font-bold">{{ $post->title }}</h2>
         @if (Auth::check() && (Auth::user()->id == $post->user_id || (Auth::user()->roles && Auth::user()->roles()->where('name', 'admin')->exists())))
@@ -72,4 +78,5 @@
             <button type="submit" class="mt-4 bg-green-500 hover:bg-green-700 text-black font-bold py-2 px-4 rounded-md transition duration-200">Submit Comment</button>
         </form>
     </div>
+</div>
 @endsection
