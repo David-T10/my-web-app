@@ -68,15 +68,59 @@
 
     {{ $comments->links() }}
 
-    <div class="mt-8">
-        <form method="POST" action="{{ route('comments.store', ['post' => $post->id]) }}">
+    <div id="comment-form" class="mt-8">
+        <form>
             @csrf
             <div class="mt-4">
-                <label for="content">Add a Comment:</label>
-                <textarea name="content" id="content" rows="3" class="block w-full rounded-md"></textarea>
+                <label for="comment-content">Add a Comment:</label>
+                <textarea id="comment-content" rows="3" class="block w-full rounded-md"></textarea>
             </div>
-            <button type="submit" class="mt-4 bg-green-500 hover:bg-green-700 text-black font-bold py-2 px-4 rounded-md transition duration-200">Submit Comment</button>
+            <button id="submit-comment" type="button" class="mt-4 bg-green-500 hover:bg-green-700 text-black font-bold py-2 px-4 rounded-md transition duration-200">Submit Comment</button>
         </form>
     </div>
-</div>
+
+    <script>
+        document.getElementById('submit-comment').addEventListener('click', function() {
+            let comment = document.getElementById('comment-content').value;
+            let postId = '{{ $post->id }}';
+
+            fetch('{{ route('comments.store', ['post' => $post->id]) }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    comment: comment,
+                    post_id: postId
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle success response
+                console.log(data); // Log the response for debugging
+
+                // Add the new comment to the comments section
+                let commentHtml = `
+                    <li class="mt-4">
+                        <strong>${data.user.name}:</strong> ${data.comment}
+                        <!-- Add edit and delete buttons if needed -->
+                    </li>
+                `;
+                document.querySelector('.bg-gray-300').insertAdjacentHTML('beforeend', commentHtml);
+
+                // Clear the comment input field
+                document.getElementById('comment-content').value = '';
+            })
+            .catch(error => {
+                // Handle error
+                console.error('Error:', error);
+            });
+        });
+    </script>
 @endsection

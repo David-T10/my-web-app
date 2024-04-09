@@ -60,7 +60,7 @@ class TwitterService
             'multipart' => [
                 [
                     'name' => 'media',
-                    'contents' => fopen($picture, 'r'),
+                    'contents' => file_get_contents($picture),
                 ],
             ],
         ]);
