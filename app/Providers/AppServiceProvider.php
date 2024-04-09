@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Http\Livewire\LoginLogoutButton;
+use App\Http\Livewire\TwitterButton;
 use App\Services\TwitterService;
 use Livewire\Livewire;
 use GuzzleHttp\Client;
@@ -26,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Livewire::component('login-logout-button', LoginLogoutButton::class);
+        Livewire::component('twitter-button', TwitterButton::class);
     }
 }
