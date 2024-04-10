@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('content');
             $table->string('title');
             $table->string('post_pic')->nullable();
+            $table->integer('likes')->default(0);
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
