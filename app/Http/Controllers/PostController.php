@@ -15,14 +15,14 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::paginate(5);
-        return view ('posts.index', ['posts' => $posts]);
+        return view('posts.index', ['posts' => $posts]);
     }
 
     public function show(Post $post)
     {
         $comments = $post->comments()->paginate(5);
         $tagNames = $post->tags->pluck('tagName')->toArray();
-        return view ('posts.show', ['post'=> $post, 'comments' => $comments, 'tagNames' => $tagNames]);
+        return view('posts.show', ['post' => $post, 'comments' => $comments, 'tagNames' => $tagNames]);
     }
 
 
@@ -30,10 +30,10 @@ class PostController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-{
-    $tags = Tag::all();
-    return view('posts.create', compact('tags'));
-}
+    {
+        $tags = Tag::all();
+        return view('posts.create', compact('tags'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -44,41 +44,45 @@ class PostController extends Controller
             session()->flash('error', 'You must be logged in to access this page.');
             return redirect()->route('login');
         }
-        
-        
+
+
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required|max:3000',
-            'post_pic' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'post_pic' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
-        
+
+
         if ($request->hasFile('post_pic')) {
-            $imagePath = $request->file('post_pic')->store('post_pics'); 
-            $imageUrl = asset('storage/' . $imagePath); 
+            $imagePath = $request->file('post_pic')->store('post_pics');
+            $imageUrl = asset('storage/' . $imagePath);
         } else {
-            $imageUrl = null; 
+            $imageUrl = null;
         }
 
         $post = new Post;
         $post->title = $validatedData['title'];
         $post->content = $validatedData['content'];
         $post->user_id = Auth::id();
-        $post->post_pic = $imageUrl; 
+        $post->post_pic = $imageUrl;
         $post->save();
 
         $tagNames = $request->input('tags');
-        if (is_string($tagNames)) {
-            $tagNames = explode(',', $tagNames);
+
+        if ($tagNames) {
+            if (is_string($tagNames)) {
+                $tagNames = explode(',', $tagNames);
+            }
+
+            foreach ($tagNames as $tagName) {
+                $tag = Tag::firstOrCreate(['tagName' => trim($tagName)]);
+                $post->tags()->attach($tag->id);
+            }
         }
-        foreach ($tagNames as $tagName) {
-            $tag = Tag::firstOrCreate(['tagName' => trim($tagName)]);
-            $post->tags()->attach($tag->id);
-        }
-    
+
         return redirect()->route('posts.index')->with('message', 'Post was created.');
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -104,11 +108,10 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Post $post)
-{
+    {
 
-    $post->delete();
+        $post->delete();
 
-    return redirect()->route('posts.index')->with('message', 'Post deleted successfully.');
-}
-
+        return redirect()->route('posts.index')->with('message', 'Post deleted successfully.');
+    }
 }

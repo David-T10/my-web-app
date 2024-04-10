@@ -28,27 +28,28 @@ class CommentController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request, $post_id)
-{
-    if (!Auth::check()) {
-        return response()->json(['error' => 'You must be logged in to add a comment.'], 403);
+    {
+        if (!Auth::check()) {
+            return response()->json(['error' => 'You must be logged in to add a comment.'], 403);
+        }
+    
+        $request->validate([
+            'content' => 'required|max:500',
+        ]);
+    
+        $comment = new Comment();
+        $comment->content = $request->input('content');
+        $comment->user_id = Auth::id();
+        $comment->post_id = $post_id;
+        $comment->save();
+    
+        return response()->json([
+            'content' => $comment->content,
+            'user' => $comment->user,
+            'userId' => $comment->user_id,
+            'commentId' => $comment->id, // Include the comment ID in the response
+        ]);
     }
-
-    $request->validate([
-        'content' => 'required|max:500',
-    ]);
-
-    $comment = new Comment();
-    $comment->content = $request->input('content');
-    $comment->user_id = Auth::id();
-    $comment->post_id = $post_id;
-    $comment->save();
-
-    return response()->json([
-        'content' => $comment->content,
-        'user' => $comment->user,
-        'commentId' => $comment->id, // Include the comment ID in the response
-    ]);
-}
 
 
     /**
@@ -82,6 +83,7 @@ class CommentController extends Controller
     {
         $postId = $comment->post_id;
         $comment->delete();
-        return response()->json(['message' => 'Comment deleted successfully.']);
+    
+        return redirect()->route('posts.show', ['post' => $postId])->with('message', 'Comment deleted successfully.');
     }
 }
