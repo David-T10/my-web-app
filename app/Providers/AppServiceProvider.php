@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Http\Livewire\Likebutton;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Livewire\LoginLogoutButton;
 use App\Http\Livewire\TwitterButton;
+use App\Http\Livewire\LikePostButton;
 use App\Services\TwitterService;
 use Livewire\Livewire;
 use GuzzleHttp\Client;
@@ -29,6 +29,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Livewire::component('login-logout-button', LoginLogoutButton::class);
         Livewire::component('twitter-button', TwitterButton::class);
-        Livewire::component('like-button', LikeButton::class);
+        // Livewire::component('like-post-button', LikePostButton::class);
     }
 }

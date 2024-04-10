@@ -38,7 +38,6 @@
         <div class="bg-gray-200 mt-4 p-4">
             <p>Caption: {{ $post->content }}</p>
         </div>
-        @livewire('like-button', ['post' => $post])
 
         <div class="mt-4">
             @if (!empty($tagNames))
@@ -50,6 +49,8 @@
             @else
                 <p>No tags</p>
             @endif
+
+            @livewire('like-post-button', ['post' => $post])
 
         </div>
 
