@@ -55,7 +55,7 @@ class PostController extends Controller
 
         if ($request->hasFile('post_pic')) {
             $request->validate([
-                'post_pic' => 'image|dimensions:max_width=700,max_height=700',
+                'post_pic' => 'image|dimensions:max_width=500,max_height=500',
             ]);
 
             $imagePath = $request->file('post_pic')->store('post_pics', 'public');
@@ -95,17 +95,33 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required|max:3000',
+            'post_pic' => 'image|mimes:jpeg,png,jpg,gif|dimensions:max_width=500,max_height=500|max:2048',
+        ]);
+
+        $post->title = $validatedData['title'];
+        $post->content = $validatedData['content'];
+
+        if ($request->hasFile('post_pic')) {
+            $imagePath = $request->file('post_pic')->store('post_pics', 'public');
+            $post->post_pic = asset('storage/' . $imagePath);
+        }
+
+        $post->save();
+
+        return redirect()->route('posts.show', ['post' => $post->id])->with('message', 'Post updated successfully.');
     }
 
     /**

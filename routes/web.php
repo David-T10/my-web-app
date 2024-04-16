@@ -23,10 +23,14 @@ Route::get('/', function () {
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/register/details', [UserController::class, 'showRegisterDetailsForm'])->name('register.details');
-Route::post('/register/details', [UserController::class, 'saveDetails'])->name('register.details');
+Route::post('/register/details/save', [UserController::class, 'saveDetails'])->name('register.details.save');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');  
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show'); //controller to use + method to use in controller
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+
+Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 

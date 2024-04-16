@@ -20,6 +20,7 @@
                     <button type="submit"
                         class="bg-red-500 hover:bg-red-700 text-white font-bold py-3 px-3 rounded-md transition duration-200">Delete</button>
                 </form>
+                <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-3 rounded-md transition duration-200">Edit Post</a>
             @endif
         </div>
 
