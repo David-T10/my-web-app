@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(5);
+        $posts = Post::latest()->paginate(5);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -54,7 +54,11 @@ class PostController extends Controller
 
 
         if ($request->hasFile('post_pic')) {
-            $imagePath = $request->file('post_pic')->store('post_pics');
+            $request->validate([
+                'post_pic' => 'image|dimensions:max_width=700,max_height=700',
+            ]);
+
+            $imagePath = $request->file('post_pic')->store('post_pics', 'public');
             $imageUrl = asset('storage/' . $imagePath);
         } else {
             $imageUrl = null;

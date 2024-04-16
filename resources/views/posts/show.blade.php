@@ -28,7 +28,7 @@
                     href="{{ route('users.show', ['id' => $post->user->id]) }}">{{ $post->user->name }}</a></p>
             <p>
                 @if ($post->post_pic)
-                    <img src="{{ storage_path($post->post_pic) }}" alt="Post Picture">
+                    <img src="{{ asset($post->post_pic) }}" alt="Post Picture">
                 @else
                     No Picture Posted
                 @endif
@@ -102,21 +102,21 @@
         </div>
 
         <script>
-            document.getElementById('submit-comment').addEventListener('click', function () {
+            document.getElementById('submit-comment').addEventListener('click', function() {
                 let content = document.getElementById('comment-content').value;
                 let postId = '{{ $post->id }}';
 
                 fetch('{{ route('comments.store', ['post' => $post->id]) }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        content: content,
-                        post_id: postId
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            content: content,
+                            post_id: postId
+                        })
                     })
-                })
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
