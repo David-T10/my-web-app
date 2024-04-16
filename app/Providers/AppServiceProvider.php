@@ -29,6 +29,5 @@ class AppServiceProvider extends ServiceProvider
     {
         Livewire::component('login-logout-button', LoginLogoutButton::class);
         Livewire::component('twitter-button', TwitterButton::class);
-        // Livewire::component('like-post-button', LikePostButton::class);
     }
 }
