@@ -55,7 +55,7 @@ class PostController extends Controller
 
         if ($request->hasFile('post_pic')) {
             $request->validate([
-                'post_pic' => 'image|dimensions:max_width=500,max_height=500',
+                'post_pic' => 'image|dimensions:max_width=2000,max_height=2000',
             ]);
 
             $imagePath = $request->file('post_pic')->store('post_pics', 'public');
@@ -108,7 +108,7 @@ class PostController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required|max:3000',
-            'post_pic' => 'image|mimes:jpeg,png,jpg,gif|dimensions:max_width=500,max_height=500|max:2048',
+            'post_pic' => 'image|mimes:jpeg,png,jpg,gif|dimensions:max_width=2000,max_height=2000|max:2048',
         ]);
 
         $post->title = $validatedData['title'];
