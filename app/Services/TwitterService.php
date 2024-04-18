@@ -60,7 +60,7 @@ class TwitterService
             'multipart' => [
                 [
                     'name' => 'media',
-                    'contents' => file_get_contents($picture),
+                    'contents' => file_get_contents(asset($picture)),
                 ],
             ],
         ]);
@@ -71,9 +71,6 @@ class TwitterService
 
     protected function getAccessToken()
     {
-        // Implement the logic to obtain an access token using the access token and access token secret
-        // You can use a library like 'abraham/twitteroauth' to handle the OAuth authentication process
-        // For simplicity, you can directly return the access token if you already have a valid one
         return $this->accessToken;
     }
 }
