@@ -51,6 +51,7 @@ class TwitterService
     protected function uploadMedia($picture)
     {
         $endpoint = 'https://upload.twitter.com/1.1/media/upload.json';
+        $fileUrl = url($picture);
 
         $response = $this->client->post($endpoint, [
             'auth' => [$this->apiKey, $this->apiSecret],
@@ -60,7 +61,7 @@ class TwitterService
             'multipart' => [
                 [
                     'name' => 'media',
-                    'contents' => file_get_contents(asset($picture)),
+                    'contents' => file_get_contents($fileUrl),
                 ],
             ],
         ]);
